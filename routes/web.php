@@ -36,6 +36,7 @@ Route::middleware(['auth:student'])->group(function () {
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('authLogin');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 

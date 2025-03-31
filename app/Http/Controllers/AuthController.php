@@ -19,5 +19,22 @@ class AuthController extends Controller
         } elseif(Auth::attempt($credentials)) {
             return redirect()->route('admin.dashboard')->with('success', "Admin Login!");
         }
+
+        return redirect()->back()->with("error","Invalid Credentials")->withInput();
+
     }
+
+    public function logout(Request $request) {
+        if (Auth::guard('student')->check()) {
+            Auth::guard('student')->logout();
+        } elseif (Auth::check()) {
+            Auth::logout();
+        }
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'You have been logged out.');
+    }
+
 }

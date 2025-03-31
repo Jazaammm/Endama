@@ -13,7 +13,7 @@
         <nav class="bg-blue-600 p-4 text-white">
             <div class="container mx-auto flex justify-between items-center">
                 <h1 class="text-xl font-bold">Student Dashboard</h1>
-                <form action="" method="POST">
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600">Logout</button>
                 </form>
