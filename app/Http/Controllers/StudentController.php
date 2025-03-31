@@ -6,7 +6,11 @@ use App\Models\Student;
 use Google_Client;
 use Google_Service_Sheets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
+
 
 class StudentController extends Controller
 {
@@ -143,4 +147,13 @@ class StudentController extends Controller
             return response()->json(['error' => 'Failed to fetch data from Google Sheets: ' . $e->getMessage()]);
         }
     }
+
+    public function showlogin(){
+        return view('auth.login');
+    }
+
+    public function StudentDashboard(){
+        return view ('auth.student.dashboard');
+    }
+
 }

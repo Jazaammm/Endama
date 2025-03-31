@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Google\Service\Classroom\StudentContext;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.student.verify');
+    return view('auth.login');
 });
 
 //STUDENT
@@ -25,3 +27,21 @@ Route::post('/verify', [StudentController::class, 'verification'])->name('verifi
 
 Route::get('/register', [StudentController::class,'registrationform'])->name('register');
 Route::post('/register', [StudentController::class, 'register'])->name('postregister');
+
+Route::get('login', [StudentController::class, 'showlogin'])->name('login');
+//Route::post('/login', [StudentController::class, 'login'])->name('postlogin');
+
+Route::middleware(['auth:student'])->group(function () {
+    Route::get('/student/dashboard', [StudentController::class, 'StudentDashboard'])->name('student.dashboard');
+});
+
+Route::post('/login', [AuthController::class, 'login'])->name('authLogin');
+
+
+
+//ADMIN
+//Route::post('/login', [UserController::class, 'login'])->name('postlogin');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [UserController::class, 'AdminDashboard'])->name('admin.dashboard');
+});

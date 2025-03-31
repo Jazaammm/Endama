@@ -66,7 +66,7 @@
             </div>
 
             <p class="mt-4 text-sm text-center text-gray-600">Already have an account?
-                <a href="" class="text-blue-500">Login</a>
+                <a href="{{ route('login') }}" class="text-blue-500">Login</a>
             </p>
 
 
