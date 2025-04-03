@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function AdminDashboard(){
-        return view('auth.admin.dashboard');
+        $totalProfessors = Professor::count();
+        return view('auth.admin.dashboard', compact('totalProfessors'));
     }
 
     public function professorlist(Request $request){
