@@ -52,7 +52,7 @@
                         <input type="checkbox" id="remember" name="remember" class="mr-2">
                         <label for="remember" class="text-lg text-gray-700">Remember me</label>
                     </div>
-                    <a href="" class="text-sm text-blue-500 hover:underline">Forgot Password?</a>
+                    <a href="{{ route('forgotpasswordForm') }}" class="text-sm text-blue-500 hover:underline">Forgot Password?</a>
                 </div>
 
                 <div class="flex justify-center">
