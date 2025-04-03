@@ -32,7 +32,7 @@
 
             <!-- Students Image Icon -->
             <li>
-                <a href="#" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#002860] dark:hover:bg-gray-700 group">
+                <a href="{{ route('studentlist') }}" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#002860] dark:hover:bg-gray-700 group">
                     <img src="{{ asset('img/image.png') }}" alt="Student Icon" class="w-6 h-6">
                     <span class="flex-1 ms-3 whitespace-nowrap">STUDENTS</span>
                 </a>

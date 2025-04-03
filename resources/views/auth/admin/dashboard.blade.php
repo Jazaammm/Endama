@@ -19,9 +19,9 @@
             <!-- Left Side: Students and Professors Cards in Column -->
             <div class="flex flex-col gap-8">
                 <!-- Total Students Card -->
-                <a href="/student-list" class="bg-white shadow-xl rounded-2xl p-8 flex flex-col justify-between items-start hover:shadow-2xl transition duration-200 relative h-[300px]">
+                <a href="{{ route('studentlist') }}" class="bg-white shadow-xl rounded-2xl p-8 flex flex-col justify-between items-start hover:shadow-2xl transition duration-200 relative h-[300px]">
                     <div class="flex flex-col justify-center items-start w-full">
-                        <p class="text-4xl font-bold mt-2" style="font-size: 70px">1,234</p>
+                        <p class="text-4xl font-bold mt-2" style="font-size: 70px">{{$totalStudents}}</p>
                         <h2 class="text-4xl font-semibold mt-40">Total of Students</h2>
                     </div>
                     <svg class="w-24 h-24 absolute top-1/2 right-4 transform -translate-y-1/2 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@
                 labels: ['Professor', 'Students'],
                 datasets: [{
                     label: 'Count',
-                    data: [567, 1234],
+                    data: [3, 1234],
                     backgroundColor: ['#445a7c', '#002860']
                 }]
             },

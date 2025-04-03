@@ -65,6 +65,8 @@ Route::get('/admin/professor/{id}/edit', [UserController::class, 'edit'])->name(
 Route::put('/admin/professor/{id}', [UserController::class, 'update'])->name('updateprof');
 Route::delete('/professor/{id}', [UserController::class, 'delete'])->name('deleteprof');
 
+Route::get('/admin/students', [UserController::class, 'studentlist'])->name('studentlist');
+
 
 
 
