@@ -16,8 +16,10 @@
         <div class="relative flex items-center space-x-3 p-2 bg-[#002860] rounded-lg mb-8">
             <img src="user-profile-url.jpg" alt="User" class="w-10 h-10 rounded-full">
             <div>
-                <p class="text-sm font-semibold text-white">Username</p>
+                @auth
+                <p class="text-sm font-semibold text-white">{{ Auth::user()->name }}</p>
                 <p class="text-xs text-gray-300">User Role</p>
+                @endauth
             </div>
 
             <!-- Dropdown Button -->

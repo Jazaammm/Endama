@@ -18,20 +18,21 @@
         <!-- Create Form Container -->
         <div class="bg-white shadow-xl rounded-2xl p-6 border" style="background-color:#CDCDCD; border-color: #002860;">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h3 class="text-lg font-bold uppercase">Create</h3>
+                <h3 class="text-lg font-bold uppercase">EDIT</h3>
                 <button class="text-gray-600 hover:text-gray-800">&larr;</button> <!-- Back Button -->
             </div>
 
-            <form action="{{ route('storeprof') }}" method="POST" class="space-y-4">
+            <form action="{{ route('updateprof', ['id' => $professor->id]) }}" method="POST" class="space-y-4">
                 @csrf
+                @method('PUT')
                 <div>
                     <label class="block text-sm font-semibold">Name: <span class="text-red-500">*</span></label>
-                    <input type="text" name="name" class="w-full border px-3 py-2 rounded" required>
+                    <input type="text" name="name" value="{{ old('name', $professor->name) }}" class="w-full border px-3 py-2 rounded" required>
                 </div>
 
                 <div>
                     <label class="block text-sm font-semibold">Email: <span class="text-red-500">*</span></label>
-                    <input type="email" name="email" class="w-full border px-3 py-2 rounded" required>
+                    <input type="email" name="email" value="{{ old('email', $professor->email ) }}" class="w-full border px-3 py-2 rounded" required>
                 </div>
 
                 <div>
@@ -46,7 +47,7 @@
 
                 <!-- Buttons -->
                 <div class="flex justify-end space-x-2 mt-4">
-                    <button type="submit" class="bg-[#002860] text-white px-4 py-2 rounded hover:bg-[#001d4e]">Create</button>
+                    <button type="submit" class="bg-[#002860] text-white px-4 py-2 rounded hover:bg-[#001d4e]">Update</button>
                     <button
                     type="button"
                     class="bg-gray-400 px-4 py-2 rounded hover:bg-gray-500"
@@ -54,7 +55,6 @@
                 >
                     Cancel
                 </button>
-
                 </div>
             </form>
         </div>

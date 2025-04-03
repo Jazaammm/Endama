@@ -61,6 +61,9 @@ Route::get('professor-list', [UserController::class,'professorlist'])->name('pro
 
 Route::get('Add-New-Prof', [UserController::class,'AddProfForm'])->name('addprof');
 Route::post('New-Prof' , [UserController::class,'store'])->name('storeprof');
+Route::get('/admin/professor/{id}/edit', [UserController::class, 'edit'])->name('editprof');
+Route::put('/admin/professor/{id}', [UserController::class, 'update'])->name('updateprof');
+
 
 
 //PROFESSOR

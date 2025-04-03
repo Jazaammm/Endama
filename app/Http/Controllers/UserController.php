@@ -49,6 +49,35 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'Add New Professor is successful.');
+        return redirect()->route('proflist')->with('success', 'Add New Professor is successful.');
     }
+
+    public function edit($id)
+{
+    $professor = Professor::findOrFail($id);
+    return view('auth.admin.editprof', compact('professor'));
+}
+public function update(Request $request, $id)
+{
+    $professor = Professor::findOrFail($id);
+
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:professors,email,'.$id,
+        'password' => 'nullable|string|min:6|confirmed',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $professor->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => $request->password ? Hash::make($request->password) : $professor->password,
+    ]);
+
+    return redirect()->back()->with('success', 'Professor updated successfully.');
+}
+
 }
