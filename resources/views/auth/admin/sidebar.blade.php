@@ -25,24 +25,24 @@
         <ul class="space-y-2 font-medium text-xl items-start justify-start h-screen">
             <li>
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#002860] dark:hover:bg-gray-700 group">
-                    <img src="{{ asset('img/dashboard-icon.png') }}" alt="Dashboard Icon" class="w-5 h-5">
-                    <span class="ms-3">Dashboard</span>
+                    <img src="{{ asset('img/dashboard.png') }}" alt="Dashboard Icon" class="w-6 h-6">
+                    <span class="ms-3">DASHBOARD</span>
                 </a>
             </li>
 
             <!-- Students Image Icon -->
             <li>
                 <a href="#" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#002860] dark:hover:bg-gray-700 group">
-                    <img src="{{ asset('img/student-icon.png') }}" alt="Student Icon" class="w-5 h-5">
-                    <span class="flex-1 ms-3 whitespace-nowrap">Students</span>
+                    <img src="{{ asset('img/image.png') }}" alt="Student Icon" class="w-6 h-6">
+                    <span class="flex-1 ms-3 whitespace-nowrap">STUDENTS</span>
                 </a>
             </li>
 
             <!-- Professors Image Icon -->
             <li>
                 <a href="{{ route('proflist') }}" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#002860] dark:hover:bg-gray-700 group">
-                    <img src="{{ asset('img/prof-icon.png') }}" alt="Professor Icon" class="w-5 h-5">
-                    <span class="flex-1 ms-3 whitespace-nowrap">Professors</span>
+                    <img src="{{ asset('img/prof.png') }}" alt="Professor Icon" class="w-6 h-6">
+                    <span class="flex-1 ms-3 whitespace-nowrap">PROFESSORS</span>
                 </a>
             </li>
         </ul>

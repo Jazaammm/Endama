@@ -32,7 +32,7 @@
                 <!-- Total Professors Card -->
                 <a href="{{ route('proflist') }}" class="bg-white shadow-xl rounded-2xl p-8 flex flex-col justify-between items-start hover:shadow-2xl transition duration-200 relative h-[300px]">
                     <div class="flex flex-col justify-center items-start w-full">
-                        <p class="text-4xl font-bold mt-2" style="font-size: 70px">567</p>
+                        <p class="text-4xl font-bold mt-2" style="font-size: 70px">{{ $totalProfessors}}</p>
                         <h2 class="text-4xl font-semibold mt-40">Total of Professors</h2>
                     </div>
                     <svg class="w-24 h-24 absolute top-1/2 right-4 transform -translate-y-1/2 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
