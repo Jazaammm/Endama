@@ -78,6 +78,16 @@ public function update(Request $request, $id)
     ]);
 
     return redirect()->back()->with('success', 'Professor updated successfully.');
-}
+    }
+
+    public function delete($id)
+    {
+        $professor = Professor::findOrFail($id); // Find the professor by ID
+
+        $professor->delete(); // Delete the professor
+
+        return redirect()->route('proflist')->with('success', 'Professor deleted successfully.');
+    }
+
 
 }

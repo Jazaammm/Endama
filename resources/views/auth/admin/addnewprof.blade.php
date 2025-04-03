@@ -31,7 +31,7 @@
 
                 <div>
                     <label class="block text-sm font-semibold">Email: <span class="text-red-500">*</span></label>
-                    <input type="email" name="email" class="w-full border px-3 py-2 rounded" required>
+                    <input type="email" name="email" class="w-full border px-3 py-2 rounded"  required>
                 </div>
 
                 <div>

@@ -47,7 +47,7 @@
 
                 <!-- Buttons -->
                 <div class="flex justify-end space-x-2 mt-4">
-                    <button type="submit" class="bg-[#002860] text-white px-4 py-2 rounded hover:bg-[#001d4e]">Update</button>
+                    <button type="submit" class="bg-[#002860] text-white px-4 py-2 rounded hover:bg-[#001d4e]">Confirm Edit</button>
                     <button
                     type="button"
                     class="bg-gray-400 px-4 py-2 rounded hover:bg-gray-500"
