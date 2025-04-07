@@ -26,7 +26,7 @@ class AuthController extends Controller
         } elseif(Auth::attempt($credentials)) {
             return redirect()->route('admin.dashboard')->with('success', "Admin Login!");
         } elseif(Auth::guard('professor')->attempt($credentials)) {
-          
+
             return redirect()->route('prof.dashboard')->with('success', "Prof Login!");
         }
 
@@ -60,8 +60,6 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email'
         ]);
-
-        // Check if email exists in students or users table
         $user = User::where('email', $request->email)->first();
         $student = Student::where('email', $request->email)->first();
 
@@ -70,21 +68,15 @@ class AuthController extends Controller
         }
 
         $email = $user ? $user->email : $student->email;
-
-        // Generate a unique token
         $token = Str::random(64);
 
-        // Remove any previous reset request for this email
         DB::table('password_reset_tokens')->where('email', $email)->delete();
 
-        // Insert new reset token
         DB::table('password_reset_tokens')->insert([
             'email' => $email,
             'token' => $token,
             'created_at' => Carbon::now(),
         ]);
-
-        // Send reset email
         Mail::send('email.forgotpass', ['token' => $token], function ($message) use ($email) {
             $message->to($email);
             $message->subject("Reset Password");
@@ -99,11 +91,9 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request) {
         $request->validate([
-            'email' => 'required|email', // Ensures email is provided and valid
-            'password' => 'required|string|min:6|confirmed', // Password must be confirmed
+            'email' => 'required|email',
+            'password' => 'required|string|min:6|confirmed',
         ]);
-
-        // Find reset token in the database
         $resetRequest = DB::table('password_reset_tokens')->where([
             'email' => $request->email,
             'token' => $request->token,
@@ -113,34 +103,29 @@ class AuthController extends Controller
             return redirect()->route('resetpasswordForm', ['token' => $request->token])
                 ->with('error', "Invalid or expired token!")->withInput();
         }
-
-        // Check if token is expired (valid for 5 minutes)
         if (Carbon::parse($resetRequest->created_at)->addMinutes(5)->isPast()) {
             DB::table('password_reset_tokens')->where('email', $request->email)->delete();
             return redirect()->route('forgotpasswordForm')->with('error', "Token expired! Request a new one.");
         }
 
-        // Find the user or student by email
         $user = User::where("email", $request->email)->first();
         $student = Student::where("email", $request->email)->first();
 
         if ($user) {
-            // If the user exists, update the password
             $user->update(["password" => Hash::make($request->password)]);
         } elseif ($student) {
-            // If the student exists, update the password
             $student->update(["password" => Hash::make($request->password)]);
         } else {
-            // If neither user nor student is found
             return redirect()->route('resetpasswordForm', ['token' => $request->token])
                 ->with('error', "Email not found!")->withInput();
         }
-
-        // Delete the used reset token to ensure it can't be reused
         DB::table('password_reset_tokens')->where("email", $request->email)->delete();
 
         return redirect()->route('login')->with('success', 'Password reset success! You can now log in.');
     }
+
+
+
 
 
 }

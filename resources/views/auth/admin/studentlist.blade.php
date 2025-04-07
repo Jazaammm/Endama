@@ -8,24 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex min-h-screen">
-
-    <!-- Sidebar -->
     @include('auth.admin.sidebar')
-
-    <!-- Main Content -->
     <div class="flex-1 p-10">
         <h2 class="text-3xl font-bold mb-6">STUDENT LIST</h2>
-
         <div class="bg-white shadow-xl rounded-2xl p-6" style="background-color: #CDCDCD">
-
-            <!-- Create New Student Button -->
             <div class="mb-4 text-right">
                 <a href="{{ route('studentlist') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Create New Student</a>
             </div>
-
-            <!-- Controls: Entries and Search (Aligned in One Line) -->
             <div class="flex justify-between items-center mb-4">
-                <!-- Entries Dropdown -->
                 <form method="GET" action="{{ route('studentlist') }}" class="flex items-center space-x-2">
                     <span>Show</span>
                     <select name="entries" class="border px-2 py-1 rounded" onchange="this.form.submit()">
@@ -35,15 +25,11 @@
                     </select>
                     <span>entries</span>
                 </form>
-
-                <!-- Search Input and Button -->
                 <form method="GET" action="{{ route('studentlist') }}" class="flex space-x-2">
                     <input type="text" name="search" value="{{ request('search') }}" class="border px-3 py-1 rounded" placeholder="Search">
                     <button type="submit" class="bg-gray-500 text-white px-4 py-1 rounded hover:bg-gray-600">Search</button>
                 </form>
             </div>
-
-            <!-- Table -->
             <table class="w-full border-collapse border border-black text-left">
                 <thead>
                     <tr class="bg-transparent border border-black">
@@ -82,7 +68,6 @@
                 </tbody>
             </table>
 
-            <!-- Pagination -->
             <div class="mt-4">
                 {{ $students->links() }}
             </div>

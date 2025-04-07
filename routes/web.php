@@ -50,11 +50,17 @@ Route::post('reset-password', [AuthController::class,'resetPassword'])->name('re
 
 
 
+
+
 //ADMIN
 //Route::post('/login', [UserController::class, 'login'])->name('postlogin');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [UserController::class, 'AdminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/settings', [UserController::class, 'adminchangepasswordform'])->name('accsettings');
+    Route::put('/account/settings', [UserController::class, 'adminchangepassword'])->name('changepass');
+
+
 });
 
 Route::get('professor-list', [UserController::class,'professorlist'])->name('proflist');
@@ -66,6 +72,11 @@ Route::put('/admin/professor/{id}', [UserController::class, 'update'])->name('up
 Route::delete('/professor/{id}', [UserController::class, 'delete'])->name('deleteprof');
 
 Route::get('/admin/students', [UserController::class, 'studentlist'])->name('studentlist');
+Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
+Route::put('/admin/photo', [UserController::class, 'updatePhoto'])->name('admin.updatePhoto');
+Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
+
+
 
 
 

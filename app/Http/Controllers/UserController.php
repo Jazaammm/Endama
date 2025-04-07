@@ -40,8 +40,6 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // dd($validator->errors(), $validator->fails());
-
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -85,9 +83,9 @@ public function update(Request $request, $id)
 
     public function delete($id)
     {
-        $professor = Professor::findOrFail($id); // Find the professor by ID
+        $professor = Professor::findOrFail($id);
 
-        $professor->delete(); // Delete the professor
+        $professor->delete();
 
         return redirect()->route('proflist')->with('success', 'Professor deleted successfully.');
     }
@@ -95,18 +93,63 @@ public function update(Request $request, $id)
     public function studentlist(Request $request)
 {
     $query = Student::query();
-
-    // Search functionality
     if ($request->has('search')) {
         $query->where('name', 'like', '%' . $request->search . '%')
               ->orWhere('email', 'like', '%' . $request->search . '%');
     }
-
-    // Pagination functionality
     $entries = $request->input('entries', 10);
     $students = $query->paginate($entries);
 
     return view('auth.admin.studentlist', compact('students'));
+}
+
+public function AdminProfile(){
+    return view ('auth.admin.accprofile');
+}
+
+public function updatePhoto(Request $request)
+{
+    $request->validate([
+        'photo' => 'nullable|image|max:2048',
+    ]);
+
+    if ($request->hasFile('photo')) {
+        $file = $request->file('photo');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('profile_photos'), $filename);
+
+        $user = Auth::user();
+        $user->photo = $filename;
+        $user->save();
+    }
+
+    return redirect()->back()->with('success', 'Photo updated successfully!');
+}
+
+public function adminchangepasswordform()
+{
+    return view('auth.admin.accsettings');
+}
+
+public function adminchangepassword(Request $request)
+{
+    $request->validate([
+        'name'     => 'required|string|max:255',
+        'email'    => 'required|email|unique:users,email,' . Auth::id(),
+        'password' => 'nullable|string|min:6|confirmed',
+    ]);
+
+    $user = Auth::user();
+    $user->name  = $request->name;
+    $user->email = $request->email;
+
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
+
+    return back()->with('success', 'Account updated successfully.');
 }
 
 
