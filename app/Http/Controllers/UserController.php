@@ -135,6 +135,15 @@ public function updatestudent(Request $request, $id)
     return redirect()->back()->with('success', 'Student updated successfully.');
     }
 
+    public function deletestudent($id)
+    {
+        $student = Student::findOrFail($id);
+
+        $student->delete();
+
+        return redirect()->route('studentlist')->with('success', 'Student deleted successfully.');
+    }
+
 
 
 public function AdminProfile(){

@@ -69,11 +69,12 @@ Route::get('Add-New-Prof', [UserController::class,'AddProfForm'])->name('addprof
 Route::post('New-Prof' , [UserController::class,'store'])->name('storeprof');
 Route::get('/admin/professor/{id}/edit', [UserController::class, 'edit'])->name('editprof');
 Route::put('/admin/professor/{id}', [UserController::class, 'update'])->name('updateprof');
-Route::delete('/professor/{id}', [UserController::class, 'delete'])->name('deleteprof');
+Route::delete('/professor/{id}', [UserController::class, 'delete'])->name('deleteprofessor');
 
 Route::get('/admin/students', [UserController::class, 'studentlist'])->name('studentlist');
 Route::get('/admin/student/{id}/edit', [UserController::class, 'editstudent'])->name('editstu');
 Route::put('/admin/student/{id}', [UserController::class, 'updatestudent'])->name('updatestu');
+Route::delete('/student/{id}', [UserController::class, 'deletestudent'])->name('deletestu');
 
 Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
 Route::put('/admin/photo', [UserController::class, 'updatePhoto'])->name('admin.updatePhoto');
