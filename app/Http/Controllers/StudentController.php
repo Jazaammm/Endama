@@ -36,7 +36,7 @@ class StudentController extends Controller
             'section' => $request->section,
         ]);
 
-        return redirect()->back()->with('success', 'Registration successful.');
+        return redirect()->route('authLogin')->with('success', 'Registration successful.');
 
     }
 

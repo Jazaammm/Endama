@@ -1,3 +1,12 @@
+# Ignore everything
 *
-!public/
+
+# EXCEPT these:
 !.gitignore
+!public/
+!storage/
+!storage/app/
+!storage/app/google/
+
+# Now, ignore only the credentials file
+/storage/app/google/credentials.json

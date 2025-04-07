@@ -103,6 +103,40 @@ public function update(Request $request, $id)
     return view('auth.admin.studentlist', compact('students'));
 }
 
+public function editstudent($id)
+{
+    $student = Student::findOrFail($id);
+    return view('auth.admin.editstudent', compact('student'));
+}
+public function updatestudent(Request $request, $id)
+{
+    $student = Student::findOrFail($id);
+
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:professors,email,'.$id,
+        'password' => 'nullable|string|min:6|confirmed',
+        'year_level' => 'required|string',
+        'section' => 'required|string|max:10',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $student->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => $request->password ? Hash::make($request->password) : $student->password,
+        'year_level' => $request->year_level,
+        'section' => $request->section,
+    ]);
+
+    return redirect()->back()->with('success', 'Student updated successfully.');
+    }
+
+
+
 public function AdminProfile(){
     return view ('auth.admin.accprofile');
 }

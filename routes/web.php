@@ -72,6 +72,9 @@ Route::put('/admin/professor/{id}', [UserController::class, 'update'])->name('up
 Route::delete('/professor/{id}', [UserController::class, 'delete'])->name('deleteprof');
 
 Route::get('/admin/students', [UserController::class, 'studentlist'])->name('studentlist');
+Route::get('/admin/student/{id}/edit', [UserController::class, 'editstudent'])->name('editstu');
+Route::put('/admin/student/{id}', [UserController::class, 'updatestudent'])->name('updatestu');
+
 Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
 Route::put('/admin/photo', [UserController::class, 'updatePhoto'])->name('admin.updatePhoto');
 Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
