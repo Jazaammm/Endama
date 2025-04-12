@@ -17,5 +17,11 @@ class Student extends Authenticatable // Change this from Model to Authenticatab
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function pollResponses()
+    {
+        return $this->hasMany(PollResponse::class);
+        //"This student can answer many polls."
+    }
 }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\PollController;
 use App\Models\Professor;
 use Google\Service\Classroom\StudentContext;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::post('/verify', [StudentController::class, 'verification'])->name('verifi
 Route::get('/register', [StudentController::class,'registrationform'])->name('register');
 Route::post('/register', [StudentController::class, 'register'])->name('postregister');
 
+Route::get('/student/profile', [StudentController::class, 'StudentProfile'])->name('student.profile');
+Route::put('/student/photo', [StudentController::class, 'StudentUpdatePhoto'])->name('student.updatePhoto');
+
 Route::get('login', [StudentController::class, 'showlogin'])->name('login');
 //Route::post('/login', [StudentController::class, 'login'])->name('postlogin');
 
@@ -52,13 +56,15 @@ Route::post('reset-password', [AuthController::class,'resetPassword'])->name('re
 
 
 
+
+
 //ADMIN
 //Route::post('/login', [UserController::class, 'login'])->name('postlogin');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [UserController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/settings', [UserController::class, 'adminchangepasswordform'])->name('accsettings');
-    Route::put('/account/settings', [UserController::class, 'adminchangepassword'])->name('changepass');
+    Route::put('/admin/settings/change-pass', [UserController::class, 'adminchangepassword'])->name('admin.changepass');
 
 
 });
@@ -76,6 +82,7 @@ Route::get('/admin/student/{id}/edit', [UserController::class, 'editstudent'])->
 Route::put('/admin/student/{id}', [UserController::class, 'updatestudent'])->name('updatestu');
 Route::delete('/student/{id}', [UserController::class, 'deletestudent'])->name('deletestu');
 
+//ADMIN SETTINGS
 Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
 Route::put('/admin/photo', [UserController::class, 'updatePhoto'])->name('admin.updatePhoto');
 Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adminprofile');
@@ -88,4 +95,30 @@ Route::get('/admin/profile', [UserController::class, 'AdminProfile'])->name('adm
 //PROFESSOR
 Route::middleware(['auth:professor'])->group(function () {
     Route::get('/professor/dashboard', [ProfessorController::class, 'ProfessorDashboard'])->name('prof.dashboard');
+    Route::get('/professor/settings', [ProfessorController::class, 'profchangepassform'])->name('prof.settings');
+    Route::put('/professor/settings/change-pass', [ProfessorController::class, 'profchangepass'])->name('prof.changepass');
+
 });
+
+//PROF SETTINGS
+Route::get('/professor/profile', [ProfessorController::class, 'ProfessorProfile'])->name('prof.profile');
+Route::put('/professor/photo', [ProfessorController::class, 'ProfupdatePhoto'])->name('prof.updatePhoto');
+
+//PROF-STUDENTS-LIST
+Route::get('/professor/students-list', [ProfessorController::class, 'viewstudentlist'])->name('viewstudentlist');
+
+//POLL
+Route::get('/professor/planned-poll', [ProfessorController::class, 'plannedpoll'])->name('plannedpoll');
+Route::get('/professor/ongoing-poll', [ProfessorController::class, 'ongoingpoll'])->name('poll.ongoing');
+Route::get('/professor/completed-poll', [ProfessorController::class, 'completedpoll'])->name('poll.completed');
+
+Route::get('/professor/create-poll', [PollController::class, 'createpollform'])->name('poll.createform');
+Route::post('/professor/store-poll', [PollController::class, 'storepoll'])->name('poll.store');
+Route::get('/polls/{poll}', [PollController::class, 'showpoll'])->name('poll.show');
+Route::get('/professor/{id}/edit-poll', [PollController::class, 'editpoll'])->name('edit.poll');
+Route::put('/professor/{id}/update-poll', [PollController::class, 'updatepoll'])->name('update.poll');
+
+Route::post('/polls/{id}/status', [PollController::class, 'updateStatus'])->name('poll.updateStatus');
+
+
+

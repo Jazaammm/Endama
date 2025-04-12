@@ -19,4 +19,10 @@ class Professor extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function polls()
+    {
+        return $this->hasMany(Poll::class);
+        //"This professor can create many polls."
+    }
 }

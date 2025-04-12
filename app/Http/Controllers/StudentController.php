@@ -98,7 +98,7 @@ class StudentController extends Controller
                 }
             }
 
-
+            
             if (!$found) {
                 return redirect()->back()->with('error', 'Student Number Not Found');
             }
@@ -155,5 +155,37 @@ class StudentController extends Controller
     public function StudentDashboard(){
         return view ('auth.student.dashboard');
     }
+
+
+    public function StudentProfile(){
+        return view("auth.student.studentprofile");
+
+    }
+
+    public function StudentUpdatePhoto(Request $request)
+{
+    $request->validate([
+        'photo' => 'nullable|image|max:2048',
+    ]);
+
+    if ($request->hasFile('photo')) {
+        $file = $request->file('photo');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('student_photos'), $filename);
+
+        $user = Auth::guard('student')->user();
+        $user->photo = $filename;
+        $user->save();
+    }
+
+    return redirect()->back()->with('success', 'Photo updated successfully!');
+}
+
+
+
+
+
+
+
 
 }

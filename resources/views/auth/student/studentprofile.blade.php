@@ -4,31 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Profile</title>
+    <title>Professor Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 font-sans">
 
+    @include('auth.student.navbar')
+
     <div class="flex min-h-screen">
-        @include('auth.admin.sidebar')
         <div class="flex-1 p-8">
             <div class="text-4xl font-bold text-gray-800 mb-6 flex items-center gap-2" style="color:#001840">
-                <a href="{{ route('admin.dashboard') }}" class="text-blue-500 hover:underline text-2xl">&larr;</a>
-                Admin Profile
+                <a href="{{ route('student.dashboard') }}" class="text-blue-500 hover:underline text-2xl">&larr;</a>
+                 Profile
             </div>
 
             <div class="flex flex-col md:flex-row gap-10 items-start mt-16">
-                <form action="{{ route('admin.updatePhoto') }}" method="POST" enctype="multipart/form-data" class="flex flex-col items-center w-full md:w-1/2 lg:w-1/3 mt-8">
+                <form action="{{ route('student.updatePhoto') }}" method="POST" enctype="multipart/form-data" class="flex flex-col items-center w-full md:w-1/2 lg:w-1/3 mt-8">
                     @csrf
                     @method('PUT')
                     <div class="w-80 h-80 border-2 border-gray-300 rounded-lg flex items-center justify-center bg-gray-200 overflow-hidden">
                         <img id="previewImage"
-                             src="{{ Auth::user()->photo ? asset('profile_photos/' . Auth::user()->photo) : '' }}"
+                             src="{{ Auth::guard('student')->user()->photo ? asset('student_photos/' . Auth::guard('student')->user()->photo) : '' }}"
                              alt="Profile Photo"
-                             class="w-full h-full object-cover {{ Auth::user()->photo ? '' : 'hidden' }}">
+                             class="w-full h-full object-cover {{ Auth::guard('student')->user()->photo ? '' : 'hidden' }}">
 
-                        @if (!Auth::user()->photo)
+                        @if (!Auth::guard('student')->user()->photo)
                             <svg id="defaultIcon" xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 9a3 3 0 100 6 3 3 0 000-6z" />
                                 <path fill-rule="evenodd" d="M4.5 5.25A1.5 1.5 0 016 3.75h2.379a1.5 1.5 0 011.06.44l.44.44h4.242l.44-.44a1.5 1.5 0 011.06-.44H18a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5H6a1.5 1.5 0 01-1.5-1.5V5.25zm7.5 10.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" clip-rule="evenodd" />
@@ -48,17 +49,17 @@
                     <div class="space-y-6">
                         <div>
                             <label class="text-lg text-gray-700">Name</label>
-                            <input type="text" value="{{ Auth::user()->name }}" class="w-full mt-2 px-5 py-3 text-lg bg-gray-100 border rounded" disabled>
+                            <input type="text" value="{{ Auth::guard('student')->user()->name }}" class="w-full mt-2 px-5 py-3 text-lg bg-gray-100 border rounded" disabled>
                         </div>
 
-                        {{-- <div>
-                            <label class="text-lg text-gray-700">Role</label>
-                            <input type="text" value="{{ Auth::user()->role }}" class="w-full mt-2 px-5 py-3 text-lg bg-gray-100 border rounded" disabled>
-                        </div> --}}
+                         <div>
+                            <label class="text-lg text-gray-700">Year</label>
+                            <input type="text" value="{{ Auth::guard('student')->user()->year_level }}" class="w-full mt-2 px-5 py-3 text-lg bg-gray-100 border rounded" disabled>
+                        </div>
 
                         <div>
-                            <label class="text-lg text-gray-700">Email</label>
-                            <input type="email" value="{{ Auth::user()->email }}" class="w-full mt-2 px-5 py-3 text-lg bg-gray-100 border rounded" disabled>
+                            <label class="text-lg text-gray-700">Section</label>
+                            <input type="email" value="{{ Auth::guard('student')->user()->section }}" class="w-full mt-2 px-5 py-3 text-lg bg-gray-100 border rounded" disabled>
                         </div>
                     </div>
                 </div>
